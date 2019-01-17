@@ -17,7 +17,7 @@ final class  CountryService {
     private let apiService = MoyaProvider<CountryRouter>()
     
     func getCountry(region: RegionEnum, completion: @escaping CountryCompletion) {
-        let request: CountryRouter = .getCountries(CountryCredentials(regionName: region.region, countryName: "", countrysBorderСode: ""))
+        let request: CountryRouter = .getCountries(CountryCredentials(regionName: region.region, countryName: nil, countrysBorderСode: nil))
         apiService.request(request) {
             switch $0 {
             case .success(let moyaResponse):
@@ -34,7 +34,7 @@ final class  CountryService {
     }
     
     func  getCountryByCode(countryCode: String, completion: @escaping CountryCompletion) {
-        let request: CountryRouter = .getCountriesByCode(CountryCredentials(regionName: "", countryName: "", countrysBorderСode: countryCode))
+        let request: CountryRouter = .getCountriesByCode(CountryCredentials(regionName: nil, countryName: nil, countrysBorderСode: countryCode))
         apiService.request(request) {
             switch $0 {
             case .success(let moyaResponse):
@@ -51,7 +51,7 @@ final class  CountryService {
     }
     
     func  getCountryByName(countryName: String, completion: @escaping CountryCompletion) {
-        let request: CountryRouter = .searchCountries(CountryCredentials(regionName: "", countryName: countryName, countrysBorderСode: ""))
+        let request: CountryRouter = .searchCountries(CountryCredentials(regionName: nil, countryName: countryName, countrysBorderСode: nil))
         apiService.request(request) {
             switch $0 {
             case .success(let moyaResponse):

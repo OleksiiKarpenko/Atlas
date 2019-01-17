@@ -9,9 +9,9 @@
 import Moya
 
 struct CountryCredentials: APIRequestParameters {
-    let regionName: String
-    let countryName: String
-    let countrysBorderСode: String
+    let regionName: String?
+    let countryName: String?
+    let countrysBorderСode: String?
 }
 
 enum CountryRouter {
@@ -26,10 +26,10 @@ extension CountryRouter: TargetType {
         switch self {
             
         case .getCountries(let credential):
-            return APIKeys.region.appending("/\(credential.regionName)")
+            return APIKeys.region.appending("/\(credential.regionName ?? "")")
             
         case .searchCountries(let credential):
-            return APIKeys.countryName.appending("/\(credential.countryName)")
+            return APIKeys.countryName.appending("/\(credential.countryName ?? "")")
         case .getCountriesByCode:
             return APIKeys.countryCode
         }
@@ -42,7 +42,7 @@ extension CountryRouter: TargetType {
             return .requestPlain
             
         case .getCountriesByCode(let credential):
-            return .requestParameters(parameters: [APIKeys.countryCodeParam: credential.countrysBorderСode], encoding: URLEncoding.default)
+            return .requestParameters(parameters: [APIKeys.countryCodeParam: credential.countrysBorderСode ?? ""], encoding: URLEncoding.default)
         }
     }
 }
